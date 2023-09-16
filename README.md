@@ -5,12 +5,8 @@ Anaconda is used as package manager and flask for the implementation of the REST
 
 ```
 conda create --name hackzurich23 python
-conda install pip
-pip install flask
-pip install pyunpack
-pip install patool
-conda install tqdm
-pip install pandas
+conda install pip tqdm
+pip install flask pyunpack patool pandas flask-cors
 ```
 
 To run the backend first run:
