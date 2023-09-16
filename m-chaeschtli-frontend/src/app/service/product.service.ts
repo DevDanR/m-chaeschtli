@@ -40,7 +40,7 @@ export class ProductService {
   // }
 
   getProducts(): Observable<any> {
-    return this.http.get('http://localhost:105')
+    return this.http.get('http://localhost:105/customer_purchases')
   }
 
 
