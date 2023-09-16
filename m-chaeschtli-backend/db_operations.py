@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 
 class ProductsDb:
-    def __init__(self, data_folder="Migros_case", amount_to_load=2000):
+    def __init__(self, data_folder="Migros_case", amount_to_load=10000):
         # file = os.path.join(os.path.dirname(__file__), "products_with_keepability.json")
         # with open(file) as fp:
         #     self.products = json.load(fp)
@@ -64,7 +64,7 @@ class ProductsDb:
 
 
 class ShoppingCartsDb:
-    def __init__(self, data_folder="Migros_case", amount_to_load=5):
+    def __init__(self, data_folder="Migros_case", amount_to_load=2):
         self.data_folder = data_folder
         shopping_cart_folder = r"Shoppin_Cart"
         data_extract_folder = os.path.join(os.path.dirname(__file__), "..", "..")
@@ -94,9 +94,9 @@ class ShoppingCartsDb:
             file_path = os.path.join(carts_files_folder, file, file + ".csv")
             try:
                 if self.shopping_carts_df is None:
-                    self.shopping_carts_df = pd.read_csv(file_path)
+                    self.shopping_carts_df = pd.read_csv(file_path, dtype=str)
                 else:
-                    df = pd.read_csv(file_path)
+                    df = pd.read_csv(file_path, dtype=str)
                     self.shopping_carts_df = pd.concat([self.shopping_carts_df, df], axis=0)
             except Exception as e:
                 print(e)
@@ -127,15 +127,17 @@ class MigrosDb:
         prod['keepability'] = new_keepability
 
     def get_purchases_of_last_week(self, customer_id=100, date_str="2023-09-09"):
-
-        date_format = 'YYYY-MM-dd'
+        date_format = "%Y-%m-%d"
         date_obj = datetime.strptime(date_str, date_format)
         date = date_obj - timedelta(days=7)
         data = self.shopping_cart_db.shopping_carts_df
-        data = data['']
-
-
+        data = data[(data['TransaktionDatumID'] >= date.strftime(date_format)) & (data['KundeID'] == str(customer_id))]
+        products = self.product_db.get_articles_from_ids(data['ArtikelID'].tolist())
+        return products
 
 
 if __name__ == '__main__':
+    dummy_customer_id = 100007
+    date_str = "2022-03-26"
     migros_db = MigrosDb()
+    migros_db.get_purchases_of_last_week(customer_id=dummy_customer_id, date_str=date_str)
