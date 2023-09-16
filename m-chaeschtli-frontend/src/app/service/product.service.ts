@@ -32,24 +32,19 @@ export class ProductService {
   }
 
   getProducts(): Observable<any> {
-    return this.http.get('http://localhost:105/customer_purchases')
+    return this.http.get('http://localhost:105/customer_food_store')
   }
 
-  eatProduct(id: string) {
+  eatProduct(id: string): Observable<any> {
     return this.http.post('http://localhost:105/get_food_waste_indicator_eaten', id)
   }
 
-  trashProduct(id: string) {
+  trashProduct(id: string): Observable<any> {
     return this.http.post('http://localhost:105/get_food_waste_indicator_trashed', id)
+  }
+
+  getCo2Result(): Observable<any> {
+    return this.http.get('http://localhost:105/get...')
   }
 }
 
-
-export class Product {
-  id?: string;
-  code?: string;
-  name?: string;
-  price?: number;
-  category?: string;
-  image?: string;
-}
