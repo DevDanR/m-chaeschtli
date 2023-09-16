@@ -9,4 +9,5 @@ conda install pip
 pip install flask
 pip install pyunpack
 pip install patool
+conda install tqdm
 ```
