@@ -25,11 +25,19 @@ class FoodStore:
 
 
 class User:
-    def __init__(self, customer_id=100007):
+    def __init__(self, customer_id="100007"):
         self.customer_id = customer_id
         self.food_store = FoodStore()
         self.co2_footprint = 0
         self.food_waste_indicator = 0
+
+    def eat_product(self, prod_id):
+        prod = self.food_store.get_product_by_id(prod_id)
+        self.update_food_waste_indicator(prod, trashed=False)
+
+    def trash_product(self, prod_id):
+        prod = self.food_store.get_product_by_id(prod_id)
+        self.update_food_waste_indicator(prod, trashed=True)
 
     def add_products_to_food_store(self, products):
         self.food_store.add_products(products)

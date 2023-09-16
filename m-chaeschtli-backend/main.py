@@ -12,8 +12,8 @@ migros_db = MigrosDb(load_all=False)
 
 
 # Create a dummy user and add some dummy data for demonstration
-dummy_customer_id = 100007
-current_date_str = "2022-03-26"
+dummy_customer_id = "100007"
+current_date_str = "2022-03-10"
 user = User(customer_id=dummy_customer_id)
 purchased_prods = migros_db.get_purchases_of_last_week(dummy_customer_id, current_date_str)
 user.add_products_to_food_store(purchased_prods)
@@ -21,13 +21,13 @@ user.add_products_to_food_store(purchased_prods)
 
 @app.route('/customer_food_store', methods=['GET', 'POST'])
 def customer_food_store():
-    customer_id = int(request.args.get('KundeID') or 100007)
+    customer_id = request.args.get('KundeID') or dummy_customer_id
     return {"products_list": user.food_store.available_products}
 
 
 @app.route('/customer_purchases', methods=['GET', 'POST'])
 def customer_purchase_data():
-    customer_id = int(request.args.get('KundeID') or 100007)
+    customer_id = request.args.get('KundeID') or dummy_customer_id
     return {"products_list": migros_db.get_purchased_articles_of_customer(customer_id)}
 
 
@@ -55,26 +55,26 @@ def get_co2_footprint_trashed():
 
 @app.route('/get_co2_footprint_eaten', methods=['GET', 'POST'])
 def get_co2_footprint_eaten():
-    prod_id = request.args.get('prodID')
+    prod_id = request.args.get('prodID') or "100124500000"
     print(f"Received prod_id: {prod_id}")
-    rnd = np.random.random(1)[0]
-    return {"co2_footprint_customer": rnd, "products_list": ["a", "b"]}
+    user.update_food_waste_indicator(prod_id)
+    return {"co2_footprint_customer": rnd}
 
 
 @app.route('/get_food_waste_indicator_trashed', methods=['GET', 'POST'])
 def get_food_waste_indicator_trashed():
-    prod_id = request.args.get('prodID')
+    prod_id = request.args.get('prodID') or "100124500000"
     print(f"Received prod_id: {prod_id}")
-    rnd = np.random.random(1)[0]
-    return {"food_waste_indicator_value": rnd}
+    user.trash_product(prod_id)
+    return {"food_waste_indicator_value": user.food_waste_indicator}
 
 
 @app.route('/get_food_waste_indicator_eaten', methods=['GET', 'POST'])
 def get_food_waste_indicator_eaten():
-    prod_id = request.args.get('prodID')
+    prod_id = request.args.get('prodID') or "100124500000"
     print(f"Received prod_id: {prod_id}")
-    rnd = np.random.random(1)[0]
-    return {"food_waste_indicator_value": rnd}
+    user.eat_product(prod_id)
+    return {"food_waste_indicator_value": user.food_waste_indicator}
 
 
 if __name__ == '__main__':

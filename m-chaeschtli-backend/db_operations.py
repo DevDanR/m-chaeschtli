@@ -103,7 +103,7 @@ class ShoppingCartsDb:
                 print(f"Exception when loading {file} file.")
         self.shopping_carts_df.reset_index(inplace=True)
 
-    def get_customer_purchases(self, customer_id: int):
+    def get_customer_purchases(self, customer_id):
         return json.loads(
             self.shopping_carts_df[self.shopping_carts_df["KundeID"] == customer_id].to_json(orient="records"))
 
