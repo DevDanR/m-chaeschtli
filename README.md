@@ -7,4 +7,6 @@ Anaconda is used as package manager and flask for the implementation of the REST
 conda create --name hackzurich23
 conda install pip
 pip install flask
+pip install pyunpack
+pip install patool
 ```
