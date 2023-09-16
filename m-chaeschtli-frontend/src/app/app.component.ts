@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
 
   products!: Product[];
   sliderValue!: number;
-  CO2Value!: number;
+  cO2Value!: number;
 
   constructor(private productService: ProductService) {}
 
@@ -54,13 +54,13 @@ export class AppComponent implements OnInit{
     this.productService.getCo2Result().subscribe(
       res => {
         console.log("Result 3: " + res)
-        this.CO2Value = res
+        this.cO2Value = res
       }
     )
   }
 
   getColor(keepability: number) {
     console.log(keepability)
-    return keepability < 100;
+    return keepability < 7;
   }
 }
