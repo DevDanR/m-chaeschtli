@@ -1,8 +1,7 @@
 export interface Product {
   id?: string;
-  code?: string;
   name?: string;
-  price?: number;
+  keepability?: number;
   category?: string;
   image?: string;
 }
