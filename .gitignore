@@ -202,3 +202,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+products_with_keepability.json
