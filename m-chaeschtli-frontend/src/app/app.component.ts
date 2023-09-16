@@ -11,17 +11,18 @@ export class AppComponent implements OnInit{
   title = 'm-chaeschtli-frontend';
   activeIndex: number | undefined;
 
-  products!: [];
+  products!: Product[];
   sliderValue!: number;
   CO2Value!: number;
 
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
+    this.sliderValue = 5
     //this.productService.getProductsSmall().then((cars) => (this.products = cars));
 
     this.productService.getProducts().subscribe(
-      res=> {
+      res => {
         this.products = res.products_list
         console.log(res)
       }
@@ -30,13 +31,29 @@ export class AppComponent implements OnInit{
 
   eatProduct(id: string) {
     this.productService.eatProduct(id).subscribe(
-      res => console.log("Result 1: " + res)
-    )
+      res => {
+        console.log("Result 1: " + res)
+        this.sliderValue = res.food_waste_indicator_value
+        this.productService.getProducts()
+      })
   }
 
   trashProduct(id: string) {
     this.productService.trashProduct(id).subscribe(
-      res => console.log("Result 2: " + res)
+      res => {
+        console.log("Result 2: " + res)
+        this.sliderValue = res.food_waste_indicator_value
+        this.productService.getProducts()
+      }
+    )
+  }
+
+  getCo2Result() {
+    this.productService.getCo2Result().subscribe(
+      res => {
+        console.log("Result 3: " + res)
+        this.CO2Value = res
+      }
     )
   }
 }
