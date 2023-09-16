@@ -48,7 +48,7 @@ export class ProductService {
   }
 
   getProductRecomendations(): Observable<any> {
-    return this.http.get('http://localhost:105/product_recommendations')
+    return this.http.get('http://localhost:105/get_product_recommendations')
   }
 }
 

@@ -21,7 +21,7 @@
     "target": "http://localhost:105",
     "secure": false
   },
-  "/product_recommendations": {
+  "/get_product_recommendations": {
     "target": "http://localhost:105",
     "secure": false
   }

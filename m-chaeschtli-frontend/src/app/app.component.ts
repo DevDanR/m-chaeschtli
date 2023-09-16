@@ -11,10 +11,12 @@ export class AppComponent implements OnInit{
   title = 'm-chaeschtli-frontend';
   activeIndex: number | undefined;
   recomendations = []
+  productForRecommendation: string = ''
 
   products!: Product[];
   sliderValue!: number;
   cO2Value!: number;
+  bestValue!: number
 
   constructor(private productService: ProductService) {}
 
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit{
     this.sliderValue = 5
     this.getData();
     this.getCo2Result()
+    this.getRecomendations()
   }
 
   getData() {
@@ -56,25 +59,26 @@ export class AppComponent implements OnInit{
     this.productService.getCo2Result().subscribe(
       res => {
         console.log("Result 3: " + res)
-        this.cO2Value = res
+        this.cO2Value = res.customer_co2_footprint
       }
     )
   }
 
   getColor(keepability: number) {
-    console.log(keepability)
     return keepability < 7;
   }
 
   getBestValue() {
     this.productService.getBestvalue().subscribe(
-      res => this.cO2Value = res
+      res => this.bestValue = res
     )
   }
 
   getRecomendations() {
     this.productService.getProductRecomendations().subscribe(
-      (res: []) => { this.recomendations = res}
+      (res: any) => {
+        this.productForRecommendation = res.product_recommendations[0][0].name
+      }
     )
   }
 }
