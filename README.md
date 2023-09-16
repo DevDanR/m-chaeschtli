@@ -11,3 +11,8 @@ pip install pyunpack
 pip install patool
 conda install tqdm
 ```
+
+To run the backend first run:
+```
+export FLASK_APP=main.py
+```
