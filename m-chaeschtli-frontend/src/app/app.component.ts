@@ -10,8 +10,8 @@ import {Product} from "./domain/product";
 export class AppComponent implements OnInit{
   title = 'm-chaeschtli-frontend';
   activeIndex: number | undefined;
-  recomendations = []
-  productForRecommendation: string = ''
+  recomendations: Product[] = []
+  originalProduct: Product = {}
 
   products!: Product[];
   sliderValue!: number;
@@ -77,8 +77,18 @@ export class AppComponent implements OnInit{
   getRecomendations() {
     this.productService.getProductRecomendations().subscribe(
       (res: any) => {
-        this.productForRecommendation = res.product_recommendations[0][0].name
+        this.originalProduct = res.product_recommendations[0][0]
+        console.log(this.originalProduct)
+        this.recomendations = res.product_recommendations[0][1]
       }
     )
   }
 }
+
+let Product : {
+  id?: string;
+  name?: string;
+  keepability?: number;
+  category?: string;
+  image?: string;
+} = {}

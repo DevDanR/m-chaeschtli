@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="grid">
-    <div class="col-8">
+    <div class="col-6">
       <div class="card">
           <p-tabView>
             <p-tabPanel header="Lebensmittel">
@@ -63,11 +63,27 @@
     </div>
     <div class="col">
       <div class="card" style="width: fit-content; align-content: center">
-        <p>Tja, da gibt es noch Potential! Für das Produkt + {{productForRecommendation}} + kannst du die Nachhaltigkeit verbessern:
-          + {{recomendations}}
+        <p>Tja, da gibt es noch Potential! Für das Produkt + <i>{{originalProduct.name}}</i> + kannst du die Nachhaltigkeit verbessern.
+          Schaue dir mal folgendes an:
         </p>
-        <p>Du kannst den Wen erreichen! </p>
-        <p-slider [ngModel]="cO2Value" orientation="vertical" [disabled]="true"></p-slider>
+        <p-orderList [value]="recomendations" [listStyle]="{ 'max-height': '30rem' }">
+          <ng-template let-recommendation pTemplate="item">
+            <div class="flex align-items-center p-2 w-full flex-wrap">
+              <div class="w-full text-center lg:w-auto lg:text-left">
+                <img src="{{ originalProduct.image?.original }}" class="mr-3 shadow-3 w-7rem mb-3 lg:w-5rem lg:mb-auto" />
+                <h5 class="mb-2">{{ originalProduct.name }}</h5>
+              </div>
+              <div class="flex-1">
+                <i class="pi pi-tag vertical-align-middle mr-2"></i>
+                <h5 class="mb-2">Das Produkt hat {{ recommendation['m_check2']['carbon_footprint']['ground_and_sea_cargo']['kg_co2'] }} kg CO2-eq</h5>
+              </div>
+              <div class="w-full text-center lg:w-auto lg:text-left">
+                <img src="{{ recommendation.image.original }}" class="mr-3 shadow-3 w-7rem mb-3 lg:w-5rem lg:mb-auto" />
+                <h5 class="mb-2">{{ recommendation.name }}</h5>
+              </div>
+            </div>
+          </ng-template>
+        </p-orderList>
       </div>
     </div>
   </div>

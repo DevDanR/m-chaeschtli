@@ -3,5 +3,9 @@ export interface Product {
   name?: string;
   keepability?: number;
   category?: string;
-  image?: string;
+  image?: Image;
+}
+
+export interface Image {
+  original?: string
 }
