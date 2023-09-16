@@ -54,7 +54,9 @@ class FoodStore:
             else:
                 co2_val = 2.6  # Average value
             co2_vals.append(co2_val)
-        self.recommended_products = related_prods
+
+        prod_recommendations = [(self.get_product_by_id(prod_id), items) for prod_id, items in related_prods.items()]
+        self.recommended_products = prod_recommendations
         self.co2_footprint_best = np.sum(co2_vals)
 
 
