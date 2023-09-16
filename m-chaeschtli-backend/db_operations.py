@@ -7,6 +7,16 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 
+def check_nested_key_exists(root_dict, keys):
+    nested_dict = root_dict
+    for key in keys:
+        try:
+            nested_dict = nested_dict[key]
+        except KeyError:
+            return None
+    return nested_dict
+
+
 class ProductsDb:
     def __init__(self, data_folder="Migros_case", amount_to_load=3000):
         # file = os.path.join(os.path.dirname(__file__), "products_with_keepability.json")
@@ -61,6 +71,31 @@ class ProductsDb:
         if len(articles) < len(article_ids):
             print("Not all articles found ind DB!")
         return articles
+
+    def check_for_similar_articles_with_lower_co2_footprint(self, products):
+        keys = ["m_check2", "carbon_footprint", "ground_and_sea_cargo", "kg_co2"]
+        # co2_footprints_filt = list(filter(lambda v: check_nested_key_exists(v, keys) is not None, self.products))
+        prod_recommendations = {}
+        for prod in products:
+            co2_footprint_prod = check_nested_key_exists(prod, keys)
+            if co2_footprint_prod is not None:
+                keys_related_products = ["related_products", "purchase_recommendations", "product_ids"]
+                related_product_ids = check_nested_key_exists(prod, keys_related_products)
+                if related_product_ids is not None:
+                    related_products = self.get_articles_from_ids(related_product_ids)
+                    for related_product in related_products:
+                        co2_footprint_rel_prod = check_nested_key_exists(related_product, keys)
+                        if co2_footprint_rel_prod is not None:
+                            if co2_footprint_rel_prod < co2_footprint_prod:
+                                if prod['id'] not in prod_recommendations.keys():
+                                    prod_recommendations[prod['id']] = [related_product]
+                                else:
+                                    prod_recommendations[prod['id']].append(related_product)
+        return prod_recommendations
+
+
+
+
 
 
 class ShoppingCartsDb:
