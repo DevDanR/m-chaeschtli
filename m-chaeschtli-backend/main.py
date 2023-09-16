@@ -8,7 +8,7 @@ app = Flask(__name__)
 cors = CORS(app)
 # app.config['CORS_HEADERS'] = 'Content-Type'
 
-migros_db = MigrosDb(load_all=False)
+migros_db = MigrosDb(load_all=True)
 
 
 # Create a dummy user and add some dummy data for demonstration
@@ -17,6 +17,9 @@ current_date_str = "2022-03-10"
 user = User(customer_id=dummy_customer_id)
 purchased_prods = migros_db.get_purchases_of_last_week(dummy_customer_id, current_date_str)
 user.add_products_to_food_store(purchased_prods)
+
+
+migros_db.product_db.check_for_similar_articles_with_lower_co2_footprint(user.food_store.available_products)
 
 
 @app.route('/customer_food_store', methods=['GET', 'POST'])
@@ -76,6 +79,12 @@ def get_food_waste_indicator_eaten():
     user.eat_product(prod_id)
     return {"food_waste_indicator_value": user.food_waste_indicator}
 
+
+@app.route('/get_customer_co2_footprint', methods=['GET', 'POST'])
+def get_customer_co2_footprint():
+    customer_id = request.args.get('KundeID') or dummy_customer_id
+    print(f"Received customer_id: {customer_id}")
+    return {"customer_co2_footprint": user.co2_footprint}
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=105)

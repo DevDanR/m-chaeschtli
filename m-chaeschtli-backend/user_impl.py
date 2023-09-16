@@ -1,6 +1,12 @@
+import numpy as np
+from db_operations import ProductsDb, check_nested_key_exists
+
+
 class FoodStore:
     def __init__(self):
         self.available_products: list[dict] | None = []
+        self.co2_footprint = 0
+        self.co2_footprint_best = 0
 
     def add_products(self, products):
         self.available_products.extend(products)
@@ -22,6 +28,20 @@ class FoodStore:
                 found_prod = prod
                 break
         return found_prod
+
+    def calc_co2_footprint(self):
+        keys = ["m_check2", "carbon_footprint", "ground_and_sea_cargo", "kg_co2"]
+        co2_footprints_filt = list(
+            filter(lambda v: check_nested_key_exists(v, keys) is not None, self.available_products))
+        self.co2_footprint = np.sum(co2_footprints_filt)
+
+    def look_for_lower_co2_footprint_products(self, product_db: ProductsDb):
+        related_prod = product_db.check_for_similar_articles_with_lower_co2_footprint(self.available_products)
+        # Calculate the lower CO2 footprint if the customer would change
+        for prod in self.available_products:
+            if prod['id'] in related_prod.keys():
+                pass
+
 
 
 class User:
@@ -59,5 +79,3 @@ class User:
 
         self.food_waste_indicator += co2_footprint_val
         self.food_store.remove_products([product])
-
-
