@@ -1,20 +1,20 @@
 <div class="">
   <div class="grid">
     <div class="col-12">
-      <h1>Hello, World! I am a m-chaeschtli!</h1>
+      <h1 class="title">Hello, World! I am a M-Chaeschtli!</h1>
     </div>
-    <div class="col-6">
+    <div class="col-8">
       <div class="card">
         <div class="flex justify-content-between">
           <p>Fatal</p>
           <p>Top gemacht</p>
         </div>
-        <p-slider [ngModel]="sliderValue"></p-slider>
+        <p-slider [ngModel]="sliderValue" [disabled]="true"></p-slider>
       </div>
     </div>
   </div>
   <div class="grid">
-    <div class="col-6">
+    <div class="col-8">
       <div class="card">
           <p-tabView>
             <p-tabPanel header="Lebensmittel">
@@ -67,8 +67,11 @@
         </div>
     </div>
     <div class="col">
-      <div class="card" style="width: fit-content">
-        <p-slider [ngModel]="CO2Value" orientation="vertical"></p-slider>
+      <div class="card" style="width: fit-content; align-content: center">
+        <p>Tja, da gibt es noch Potential! Mit diesen Produnken könntest du die Nachhaltigkeit verbessern:
+        </p>
+        <p>Das mögliche Resultat: </p>
+        <p-slider [ngModel]="cO2Value" orientation="vertical" [disabled]="true"></p-slider>
       </div>
     </div>
   </div>
