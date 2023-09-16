@@ -2,5 +2,14 @@
   "/customer_purchases": {
     "target": "http://localhost:105",
     "secure": false
+  },
+
+  "/get_food_waste_indicator_eaten": {
+    "target": "http://localhost:105",
+    "secure": false
+  },
+  "/get_food_waste_indicator_trashed": {
+    "target": "http://localhost:105",
+    "secure": false
   }
 }
