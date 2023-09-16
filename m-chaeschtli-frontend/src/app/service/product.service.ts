@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 export class ProductService {
@@ -31,34 +31,16 @@ export class ProductService {
     return Promise.resolve(this.getProductsData().slice(0, 5));
   }
 
-  // getProductsSmall() {
-  //   return Promise.resolve(this.getProductsData().slice(0, 10));
-  // }
-
-  // getProducts() {
-  //   return Promise.resolve(this.getProductsData());
-  // }
-
   getProducts(): Observable<any> {
     return this.http.get('http://localhost:105/customer_purchases')
   }
 
-
-  // getProductsWithOrdersSmall() {
-  //   return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10));
-  // }
-  //
-  // getProductsWithOrders() {
-  //   return Promise.resolve(this.getProductsWithOrdersData());
-  // }
   eatProduct(id: string) {
-    console.log("Id to be: " + id)
-    return this.http.post('this.localhost:105/get_food_waste_indicator_eaten', id)
+    return this.http.post('http://localhost:105/get_food_waste_indicator_eaten', id)
   }
 
   trashProduct(id: string) {
-    console.log("Id to be" + id)
-    return this.http.post('this.localhost:105/get_food_waste_indicator_trashed', id)
+    return this.http.post('http://localhost:105/get_food_waste_indicator_trashed', id)
   }
 }
 

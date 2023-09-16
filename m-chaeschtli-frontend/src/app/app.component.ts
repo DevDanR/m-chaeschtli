@@ -29,10 +29,14 @@ export class AppComponent implements OnInit{
   }
 
   eatProduct(id: string) {
-    this.productService.eatProduct(id)
+    this.productService.eatProduct(id).subscribe(
+      res => console.log("Result 1: " + res)
+    )
   }
 
   trashProduct(id: string) {
-    this.productService.trashProduct(id)
+    this.productService.trashProduct(id).subscribe(
+      res => console.log("Result 2: " + res)
+    )
   }
 }
