@@ -18,4 +18,4 @@ To run the backend first run:
 export FLASK_APP=main.py  # Linux
 set FLASK_APP=main.py  # Windows
 ```
-If you run into issues try to deactivate the flask plugin (see [here](https://youtrack.jetbrains.com/issue/PY-55759/Flask-console-start-failed-No-module-named-wsgi))
+If you run into issues try to deactivate the flask plugin (see [https://youtrack.jetbrains.com/issue/PY-55759/Flask-console-start-failed-No-module-named-wsgi](here))
