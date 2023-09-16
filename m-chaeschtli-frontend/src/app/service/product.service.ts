@@ -46,5 +46,13 @@ export class ProductService {
   getCo2Result(): Observable<any> {
     return this.http.get('http://localhost:105/get_customer_co2_footprint')
   }
+
+  getBestvalue(): Observable<any> {
+    return this.http.get('http://localhost:105/get_customer_co2_footprint_best')
+  }
+
+  getProductRecomendations(): Observable<any> {
+    return this.http.get('http://localhost:105/product_recomendations')
+  }
 }
 

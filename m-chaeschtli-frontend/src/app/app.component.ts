@@ -10,6 +10,7 @@ import {Product} from "./domain/product";
 export class AppComponent implements OnInit{
   title = 'm-chaeschtli-frontend';
   activeIndex: number | undefined;
+  recomendations = []
 
   products!: Product[];
   sliderValue!: number;
@@ -62,5 +63,17 @@ export class AppComponent implements OnInit{
   getColor(keepability: number) {
     console.log(keepability)
     return keepability < 7;
+  }
+
+  getBestValue() {
+    this.productService.getBestvalue().subscribe(
+      res => this.cO2Value = res
+    )
+  }
+
+  getRecomendations() {
+    this.productService.getProductRecomendations().subscribe(
+      (res: []) => { this.recomendations = res}
+    )
   }
 }
