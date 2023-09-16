@@ -10,9 +10,11 @@ pip install flask
 pip install pyunpack
 pip install patool
 conda install tqdm
+pip install pandas
 ```
 
 To run the backend first run:
 ```
-export FLASK_APP=main.py
+export FLASK_APP=main.py  # Linux
+set FLASK_APP=main.py  # Windows
 ```
