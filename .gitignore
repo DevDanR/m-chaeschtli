@@ -204,3 +204,6 @@ testem.log
 Thumbs.db
 
 products_with_keepability.json
+
+.angular/
+m-chaeschtli-frontend/node_modules/
