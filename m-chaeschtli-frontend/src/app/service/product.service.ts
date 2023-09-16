@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class ProductService {
+  constructor(private http: HttpClient) {
+  }
   getProductsData() {
     return [
       {
@@ -31,8 +35,12 @@ export class ProductService {
     return Promise.resolve(this.getProductsData().slice(0, 10));
   }
 
-  getProducts() {
-    return Promise.resolve(this.getProductsData());
+  // getProducts() {
+  //   return Promise.resolve(this.getProductsData());
+  // }
+
+  getProducts(): Observable<any> {
+    return this.http.get('http://localhost:105')
   }
 
 
