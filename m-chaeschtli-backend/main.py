@@ -91,10 +91,17 @@ def get_customer_co2_footprint():
 
 
 @app.route('/get_customer_co2_footprint_best', methods=['GET', 'POST'])
-def get_customer_co2_footprint():
+def get_customer_co2_footprint_best():
     customer_id = request.args.get('KundeID') or dummy_customer_id
     print(f"Received customer_id: {customer_id}")
     return {"customer_co2_footprint_best": user.food_store.co2_footprint_best}
+
+
+@app.route('/get_product_recommendations', methods=['GET', 'POST'])
+def get_product_recommendations():
+    customer_id = request.args.get('KundeID') or dummy_customer_id
+    print(f"Received customer_id: {customer_id}")
+    return {"product_recommendations": user.food_store.recommended_products}
 
 
 if __name__ == '__main__':
