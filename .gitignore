@@ -207,3 +207,8 @@ products_with_keepability.json
 
 .angular/
 m-chaeschtli-frontend/node_modules/
+m-chaeschtli-backend/m-chaeschtli-backend.iml
+m-chaeschtli-frontend/m-chaeschtli-frontend.iml
+m-chaeschtli-backend/package-lock.json
+m-chaeschtli-frontend/package-lock.json
+
