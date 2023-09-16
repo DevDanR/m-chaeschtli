@@ -1,1 +1,76 @@
-<p>Hello! I am m-chaeschtly!</p>
+<div class="">
+  <div class="grid">
+    <div class="col-12">
+      <h1>Hello, World! I am a m-chaeschtli!</h1>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="flex justify-content-between">
+          <p>Fatal</p>
+          <p>Top gemacht</p>
+        </div>
+        <p-slider [(ngModel)]="sliderValue"></p-slider>
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-6">
+      <div class="card">
+          <p-tabView>
+            <p-tabPanel header="Lebensmittel">
+              <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="Products">
+                <ng-template let-product pTemplate="item">
+                  <div class="flex align-items-center p-2 w-full flex-wrap">
+                    <div class="w-full text-center lg:w-auto lg:text-left">
+                      <img src="{{ product.image.original }}" [alt]="product.name" class="mr-3 shadow-3 w-7rem mb-3 lg:w-5rem lg:mb-auto" />
+                    </div>
+                    <div class="flex-1">
+                      <h5 class="mb-2">{{ product.name }}</h5>
+                      <i class="pi pi-tag vertical-align-middle mr-2"></i>
+                    </div>
+                    <div class="flex flex-column align-items-end">
+                      <button pButton pRipple icon="pi pi-heart" class="p-button-success p-button-outlined"
+                              style="margin-bottom: 5px" (click)="
+                              eatProduct(product.id)"></button>
+                      <button pButton pRipple icon="pi pi-trash"
+                              class="p-button-danger p-button-outlined"
+                              (click)="trashProduct(product.id)"></button>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-orderList>
+            </p-tabPanel>
+            <p-tabPanel header="Haushalt">
+              <p>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+                illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+                odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non
+                numquam eius modi.
+              </p>
+            </p-tabPanel>
+            <p-tabPanel header="...">
+              <p>
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui
+                blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
+                et quas molestias excepturi sint occaecati cupiditate non provident,
+                similique sunt in culpa qui officia deserunt mollitia animi, id est
+                laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+                distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+                cumque nihil impedit quo minus.
+              </p>
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+    </div>
+    <div class="col">
+      <div class="card" style="width: fit-content">
+        <p-slider [(ngModel)]="CO2Value" orientation="vertical"></p-slider>
+      </div>
+    </div>
+  </div>
+</div>
+
+

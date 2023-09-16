@@ -31,9 +31,9 @@ export class ProductService {
     return Promise.resolve(this.getProductsData().slice(0, 5));
   }
 
-  getProductsSmall() {
-    return Promise.resolve(this.getProductsData().slice(0, 10));
-  }
+  // getProductsSmall() {
+  //   return Promise.resolve(this.getProductsData().slice(0, 10));
+  // }
 
   // getProducts() {
   //   return Promise.resolve(this.getProductsData());
@@ -51,4 +51,23 @@ export class ProductService {
   // getProductsWithOrders() {
   //   return Promise.resolve(this.getProductsWithOrdersData());
   // }
-};
+  eatProduct(id: string) {
+    console.log("Id to be: " + id)
+    return this.http.post('this.localhost:105/get_food_waste_indicator_eaten', id)
+  }
+
+  trashProduct(id: string) {
+    console.log("Id to be" + id)
+    return this.http.post('this.localhost:105/get_food_waste_indicator_trashed', id)
+  }
+}
+
+
+export class Product {
+  id?: string;
+  code?: string;
+  name?: string;
+  price?: number;
+  category?: string;
+  image?: string;
+}
