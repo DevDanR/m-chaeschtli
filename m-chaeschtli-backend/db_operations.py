@@ -4,6 +4,7 @@ from tqdm import tqdm
 import shutil
 import json
 import pandas as pd
+from datetime import datetime, timedelta
 
 
 class ProductsDb:
@@ -121,12 +122,19 @@ class MigrosDb:
         article_ids = [str(p["ArtikelID"]) for p in purchases]
         return self.product_db.get_articles_from_ids(article_ids)
 
-    def get_categories_of_articles(self):
-        pass
-
     def set_keepability(self, product_id, new_keepability):
-        prod = list(filter(lambda prod: prod['id'] == product_id, self.product_db.products))[0]
+        prod = self.product_db.keepability_dict[product_id]
         prod['keepability'] = new_keepability
+
+    def get_purchases_of_last_week(self, customer_id=100, date_str="2023-09-09"):
+
+        date_format = 'YYYY-MM-dd'
+        date_obj = datetime.strptime(date_str, date_format)
+        date = date_obj - timedelta(days=7)
+        data = self.shopping_cart_db.shopping_carts_df
+        data = data['']
+
+
 
 
 if __name__ == '__main__':
