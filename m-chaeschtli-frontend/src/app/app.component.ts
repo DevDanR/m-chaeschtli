@@ -23,8 +23,8 @@ export class AppComponent implements OnInit{
 
     this.productService.getProducts().subscribe(
       res => {
-        this.products = res.products_list
-        console.log(res)
+        this.products = res.products_list.sort((a: { keepability: number; }, b: { keepability: number; }) =>
+          a.keepability - b.keepability)
       }
     )
   }
