@@ -15,13 +15,21 @@ class FoodStore:
         for prod in remove_prods:
             self.available_products.remove(prod)
 
+    def get_product_by_id(self, prod_id):
+        found_prod = {}
+        for prod in self.available_products:
+            if prod['id'] == prod_id:
+                found_prod = prod
+                break
+        return found_prod
+
 
 class User:
     def __init__(self, customer_id=100007):
         self.customer_id = customer_id
         self.food_store = FoodStore()
         self.co2_footprint = 0
-        self.perfect_indicator = 0
+        self.food_waste_indicator = 0
 
     def add_products_to_food_store(self, products):
         self.food_store.add_products(products)
@@ -34,11 +42,14 @@ class User:
                 co2_footprint = co2_footprint.get(key, None)
             else:
                 break
-        if co2_footprint is not None:
-            if trashed:
-                co2_footprint_val = -co2_footprint
-            else:
-                co2_footprint_val = co2_footprint
+        if co2_footprint is None:
+            co2_footprint = 2.6  # Average value
+        if trashed:
+            co2_footprint_val = -co2_footprint
         else:
-            co2_footprint_val = 2  # Average value
+            co2_footprint_val = co2_footprint
+
+        self.food_waste_indicator += co2_footprint_val
+        self.food_store.remove_products([product])
+
 

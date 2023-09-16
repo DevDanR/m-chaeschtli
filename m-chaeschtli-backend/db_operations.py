@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 
 class ProductsDb:
-    def __init__(self, data_folder="Migros_case", amount_to_load=10000):
+    def __init__(self, data_folder="Migros_case", amount_to_load=3000):
         # file = os.path.join(os.path.dirname(__file__), "products_with_keepability.json")
         # with open(file) as fp:
         #     self.products = json.load(fp)

@@ -22,7 +22,7 @@ user.add_products_to_food_store(purchased_prods)
 @app.route('/customer_food_store', methods=['GET', 'POST'])
 def customer_food_store():
     customer_id = int(request.args.get('KundeID') or 100007)
-    return {"products_list": migros_db.get_purchased_articles_of_customer(customer_id)}
+    return {"products_list": user.food_store.available_products}
 
 
 @app.route('/customer_purchases', methods=['GET', 'POST'])
@@ -39,10 +39,10 @@ def set_keepability():
         migros_db.set_keepability(product_id, new_keepability)
 
 
-@app.route('/get_purchases_of_last_week', methods=['GET', 'POST'])
-def get_purchases_of_last_week():
-    customer_id = int(request.args.get('KundeID') or 100007)
-    return {"programming_languages": "test"}
+# @app.route('/get_purchases_of_last_week', methods=['GET', 'POST'])
+# def get_purchases_of_last_week():
+#     customer_id = int(request.args.get('KundeID') or 100007)
+#     return {"test": "test"}
 
 
 @app.route('/get_co2_footprint_trashed', methods=['GET', 'POST'])
@@ -58,7 +58,7 @@ def get_co2_footprint_eaten():
     prod_id = request.args.get('prodID')
     print(f"Received prod_id: {prod_id}")
     rnd = np.random.random(1)[0]
-    return {"co2_footprint_customer": rnd}
+    return {"co2_footprint_customer": rnd, "products_list": ["a", "b"]}
 
 
 @app.route('/get_food_waste_indicator_trashed', methods=['GET', 'POST'])
