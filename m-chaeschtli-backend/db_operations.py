@@ -8,57 +8,55 @@ import pandas as pd
 
 class ProductsDb:
     def __init__(self, data_folder="Migros_case", amount_to_load=2000):
-        file = os.path.join(os.path.dirname(__file__), "products_with_keepability.json")
-        with open(file) as fp:
-            self.products = json.load(fp)
+        # file = os.path.join(os.path.dirname(__file__), "products_with_keepability.json")
+        # with open(file) as fp:
+        #     self.products = json.load(fp)
+        #
+        # print("...")
+        self.data_folder = data_folder
+        products_folder = r"products"
+        data_extract_folder = os.path.join(os.path.dirname(__file__), "..", "..")
 
-        print("...")
-        # self.data_folder = data_folder
-        # products_folder = r"products"
-        # data_extract_folder = os.path.join(os.path.dirname(__file__), "..", "..")
-        #
-        # for path in os.walk(data_folder):
-        #     create_path = os.path.join(data_extract_folder, path[0])
-        #     if not os.path.exists(create_path):
-        #         os.mkdir(create_path)
-        #     for subfolder in path[1]:
-        #         if not os.path.exists(os.path.join(create_path, subfolder)):
-        #             os.mkdir(os.path.join(create_path, subfolder))
-        #     print(f"Checking files to extract:\n{path[2]}\n")
-        #     for file in tqdm(path[2]):
-        #         if file.split('.')[1] == '7z':
-        #             extract_path = os.path.join(create_path, file.split('.')[0])
-        #             if not os.path.exists(extract_path):
-        #                 os.mkdir(extract_path)
-        #                 Archive(os.path.join(path[0], file)).extractall(extract_path)
-        #         else:
-        #             extract_path = os.path.join(create_path, file)
-        #             shutil.copyfile(os.path.join(path[0], file), extract_path)
-        #
-        # products_files_folder = os.path.join(data_extract_folder, data_folder, products_folder, 'products_de', 'de')
-        # print("Loading products\n")
-        # self.products = []
-        # for file in tqdm(os.listdir(products_files_folder)[:amount_to_load]):
-        #     file_path = os.path.join(products_files_folder, file)
-        #     with open(file_path, encoding="utf8") as fp:
-        #         try:
-        #             self.products.append(json.load(fp))
-        #         except Exception as e:
-        #             print(e)
-        #             print(f"Exception when loading {file} file.")
-        #
-        # with open("estimated_keepability_old.json") as fp:
-        #     self.keepability_dict = json.load(fp)
-        #
-        # for k in range(len(self.products)):
-        #     id = self.products[k]['id']
-        #     for v in self.keepability_dict:
-        #         if v['id'] == id:
-        #             self.products[k]['keepability'] = v['keepability']
-        # print(self.keepability_dict)
+        for path in os.walk(data_folder):
+            create_path = os.path.join(data_extract_folder, path[0])
+            if not os.path.exists(create_path):
+                os.mkdir(create_path)
+            for subfolder in path[1]:
+                if not os.path.exists(os.path.join(create_path, subfolder)):
+                    os.mkdir(os.path.join(create_path, subfolder))
+            print(f"Checking files to extract:\n{path[2]}\n")
+            for file in tqdm(path[2]):
+                if file.split('.')[1] == '7z':
+                    extract_path = os.path.join(create_path, file.split('.')[0])
+                    if not os.path.exists(extract_path):
+                        os.mkdir(extract_path)
+                        Archive(os.path.join(path[0], file)).extractall(extract_path)
+                else:
+                    extract_path = os.path.join(create_path, file)
+                    shutil.copyfile(os.path.join(path[0], file), extract_path)
+
+        products_files_folder = os.path.join(data_extract_folder, data_folder, products_folder, 'products_de', 'de')
+        print("Loading products\n")
+        self.products = []
+        for file in tqdm(os.listdir(products_files_folder)[:amount_to_load]):
+            file_path = os.path.join(products_files_folder, file)
+            with open(file_path, encoding="utf8") as fp:
+                try:
+                    self.products.append(json.load(fp))
+                except Exception as e:
+                    print(e)
+                    print(f"Exception when loading {file} file.")
+
+        file = os.path.join(os.path.dirname(__file__), "estimated_keepability.json")
+        with open(file) as fp:
+            self.keepability_list = json.load(fp)
+
+        self.keepability_dict = {p['id']: p['keepability'] for p in self.keepability_list}
 
     def get_articles_from_ids(self, article_ids):
         articles = [p for p in self.products if p['id'] in article_ids]
+        for art in articles:
+            art['keepability'] = self.keepability_dict[art['id']]
         if len(articles) < len(article_ids):
             print("Not all articles found ind DB!")
         return articles

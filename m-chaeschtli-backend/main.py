@@ -8,7 +8,7 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-migros_db = MigrosDb(load_all=True)
+migros_db = MigrosDb(load_all=False)
 customer = User()
 
 
