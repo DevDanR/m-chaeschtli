@@ -1,0 +1,17 @@
+:host ::ng-deep {
+
+  .p-orderlist-controls{
+    display: none;
+  }
+
+  .p-slider {
+    margin: 30px;
+    margin-top: 10px;
+  }
+
+  .card {
+    padding: 50px;
+    margin: 20px;
+    border: 1px solid rgba(0, 0, 0, .1);
+  }
+}

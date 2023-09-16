@@ -1,0 +1,6 @@
+{
+  "/customer_purchases": {
+    "target": "http://localhost:105",
+    "secure": false
+  }
+}
