@@ -14,25 +14,27 @@ import {RippleModule} from "primeng/ripple";
 import {SliderModule} from "primeng/slider";
 import {FormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
+import {StyleClassModule} from "primeng/styleclass";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    PanelModule,
-    ButtonModule,
-    BrowserAnimationsModule,
-    TabViewModule,
-    TagModule,
-    OrderListModule,
-    RippleModule,
-    SliderModule,
-    FormsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        PanelModule,
+        ButtonModule,
+        BrowserAnimationsModule,
+        TabViewModule,
+        TagModule,
+        OrderListModule,
+        RippleModule,
+        SliderModule,
+        FormsModule,
+        HttpClientModule,
+        StyleClassModule
+    ],
   providers: [ProductService, HttpClient],
   bootstrap: [AppComponent]
 })

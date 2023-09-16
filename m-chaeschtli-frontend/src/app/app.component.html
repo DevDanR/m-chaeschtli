@@ -20,7 +20,7 @@
             <p-tabPanel header="Lebensmittel">
               <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="Products">
                 <ng-template let-product pTemplate="item">
-                  <div class="flex align-items-center p-2 w-full flex-wrap">
+                  <div class="flex align-items-center p-2 w-full flex-wrap" [style]="getColor(product.keepability) ? 'background: #fee1dc': ''">
                     <div class="w-full text-center lg:w-auto lg:text-left">
                       <img src="{{ product.image.original }}" [alt]="product.name" class="mr-3 shadow-3 w-7rem mb-3 lg:w-5rem lg:mb-auto" />
                     </div>

@@ -19,8 +19,10 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.sliderValue = 5
-    //this.productService.getProductsSmall().then((cars) => (this.products = cars));
+    this.getData();
+  }
 
+  getData() {
     this.productService.getProducts().subscribe(
       res => {
         this.products = res.products_list.sort((a: { keepability: number; }, b: { keepability: number; }) =>
@@ -34,7 +36,7 @@ export class AppComponent implements OnInit{
       res => {
         console.log("Result 1: " + res)
         this.sliderValue = res.food_waste_indicator_value
-        this.productService.getProducts()
+        this.getData()
       })
   }
 
@@ -43,7 +45,7 @@ export class AppComponent implements OnInit{
       res => {
         console.log("Result 2: " + res)
         this.sliderValue = res.food_waste_indicator_value
-        this.productService.getProducts()
+        this.getData()
       }
     )
   }
@@ -55,5 +57,10 @@ export class AppComponent implements OnInit{
         this.CO2Value = res
       }
     )
+  }
+
+  getColor(keepability: number) {
+    console.log(keepability)
+    return keepability < 100;
   }
 }
