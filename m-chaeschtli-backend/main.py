@@ -39,7 +39,7 @@ def customer_purchase_data():
 
 @app.route('/set_keepability', methods=['GET', 'POST'])
 def set_keepability():
-    product_id = request.args.get('product_id') or None
+    product_id = request.data.decode('utf-8') or None
     if product_id is not None:
         new_keepability = int(request.args.get('new_keepability'))
         migros_db.set_keepability(product_id, new_keepability)
@@ -53,7 +53,7 @@ def set_keepability():
 
 @app.route('/get_co2_footprint_trashed', methods=['GET', 'POST'])
 def get_co2_footprint_trashed():
-    prod_id = request.args.get('prodID')
+    prod_id = request.data.decode('utf-8')
     print(f"Received prod_id: {prod_id}")
     rnd = np.random.random(1)[0]
     return {"co2_footprint_customer": rnd}
@@ -61,7 +61,7 @@ def get_co2_footprint_trashed():
 
 @app.route('/get_co2_footprint_eaten', methods=['GET', 'POST'])
 def get_co2_footprint_eaten():
-    prod_id = request.args.get('prodID') or "100124500000"
+    prod_id = request.data.decode('utf-8') or "100124500000"
     print(f"Received prod_id: {prod_id}")
     user.update_food_waste_indicator(prod_id)
     return {"co2_footprint_customer": user.food_waste_indicator}
@@ -69,7 +69,7 @@ def get_co2_footprint_eaten():
 
 @app.route('/get_food_waste_indicator_trashed', methods=['GET', 'POST'])
 def get_food_waste_indicator_trashed():
-    prod_id = request.args.get('prodID') or "100124500000"
+    prod_id = request.data.decode('utf-8') or "100124500000"
     print(f"Received prod_id: {prod_id}")
     user.trash_product(prod_id)
     return {"food_waste_indicator_value": user.food_waste_indicator}
@@ -77,7 +77,7 @@ def get_food_waste_indicator_trashed():
 
 @app.route('/get_food_waste_indicator_eaten', methods=['GET', 'POST'])
 def get_food_waste_indicator_eaten():
-    prod_id = request.args.get('prodID') or "100124500000"
+    prod_id = request.data.decode('utf-8')
     print(f"Received prod_id: {prod_id}")
     user.eat_product(prod_id)
     return {"food_waste_indicator_value": user.food_waste_indicator}
@@ -85,7 +85,7 @@ def get_food_waste_indicator_eaten():
 
 @app.route('/get_customer_co2_footprint', methods=['GET', 'POST'])
 def get_customer_co2_footprint():
-    customer_id = request.args.get('KundeID') or dummy_customer_id
+    customer_id = request.data.decode('utf-8') or dummy_customer_id
     print(f"Received customer_id: {customer_id}")
     return {"customer_co2_footprint": user.food_store.co2_footprint}
 
