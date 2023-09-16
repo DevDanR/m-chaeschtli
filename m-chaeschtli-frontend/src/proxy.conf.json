@@ -11,5 +11,18 @@
   "/get_food_waste_indicator_trashed": {
     "target": "http://localhost:105",
     "secure": false
+  },
+  "/get_customer_co2_footprint": {
+    "target": "http://localhost:105",
+    "secure": false
+  },
+
+  "/get_customer_co2_footprint_best": {
+    "target": "http://localhost:105",
+    "secure": false
+  },
+  "/product_recommendations": {
+    "target": "http://localhost:105",
+    "secure": false
   }
 }

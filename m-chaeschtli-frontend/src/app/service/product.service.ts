@@ -27,10 +27,6 @@ export class ProductService {
     ];
   }
 
-  getProductsMini() {
-    return Promise.resolve(this.getProductsData().slice(0, 5));
-  }
-
   getProducts(): Observable<any> {
     return this.http.get('http://localhost:105/customer_food_store')
   }
@@ -52,7 +48,7 @@ export class ProductService {
   }
 
   getProductRecomendations(): Observable<any> {
-    return this.http.get('http://localhost:105/product_recomendations')
+    return this.http.get('http://localhost:105/product_recommendations')
   }
 }
 

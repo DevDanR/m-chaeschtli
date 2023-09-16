@@ -21,6 +21,7 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.sliderValue = 5
     this.getData();
+    this.getCo2Result()
   }
 
   getData() {
