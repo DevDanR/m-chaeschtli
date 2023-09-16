@@ -7,6 +7,7 @@ class FoodStore:
         self.available_products: list[dict] | None = []
         self.co2_footprint = 0
         self.co2_footprint_best = 0
+        self.recommended_products = {}
 
     def add_products(self, products):
         self.available_products.extend(products)
@@ -33,22 +34,34 @@ class FoodStore:
         keys = ["m_check2", "carbon_footprint", "ground_and_sea_cargo", "kg_co2"]
         co2_footprints_filt = list(
             filter(lambda v: check_nested_key_exists(v, keys) is not None, self.available_products))
-        self.co2_footprint = np.sum(co2_footprints_filt)
+        co2_values = [p["m_check2"]["carbon_footprint"]["ground_and_sea_cargo"]["kg_co2"] for p in co2_footprints_filt]
+        self.co2_footprint = np.sum(co2_values) + 2.6 * len(list(
+            filter(lambda v: check_nested_key_exists(v, keys) is None, self.available_products)))
 
     def look_for_lower_co2_footprint_products(self, product_db: ProductsDb):
-        related_prod = product_db.check_for_similar_articles_with_lower_co2_footprint(self.available_products)
+        related_prods = product_db.check_for_similar_articles_with_lower_co2_footprint(self.available_products)
         # Calculate the lower CO2 footprint if the customer would change
+        co2_vals = []
         for prod in self.available_products:
-            if prod['id'] in related_prod.keys():
-                pass
-
+            if check_nested_key_exists(prod,
+                                       ["m_check2", "carbon_footprint", "ground_and_sea_cargo", "kg_co2"]) is not None:
+                if prod['id'] in related_prods.keys():
+                    co2_val = np.min(
+                        [rel_prod["m_check2"]["carbon_footprint"]["ground_and_sea_cargo"]["kg_co2"] for rel_prod in
+                         related_prods[prod['id']]])
+                else:
+                    co2_val = prod["m_check2"]["carbon_footprint"]["ground_and_sea_cargo"]["kg_co2"]
+            else:
+                co2_val = 2.6  # Average value
+            co2_vals.append(co2_val)
+        self.recommended_products = related_prods
+        self.co2_footprint_best = np.sum(co2_vals)
 
 
 class User:
     def __init__(self, customer_id="100007"):
         self.customer_id = customer_id
         self.food_store = FoodStore()
-        self.co2_footprint = 0
         self.food_waste_indicator = 0
 
     def eat_product(self, prod_id):
