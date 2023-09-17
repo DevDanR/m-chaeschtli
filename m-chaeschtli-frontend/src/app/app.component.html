@@ -1,16 +1,18 @@
-<div class="">
+<div class="" style="background: rgb(105, 0, 139, 0.1)">
   <div class="grid">
-    <div class="col-12">
-      <h1 class="title">Hello, World! I am a M-Chaeschtli!</h1>
-    </div>
-    <div class="col-8">
+    <div class="col-6">
       <div class="card">
+        <p>Food-wastometer</p>
+        <p>Challenge: schaffst du weniger als 90% vom Essen in diesem Monat wegzuwerfen? </p>
         <div class="flex justify-content-between">
           <p>Fatal</p>
           <p>Top gemacht</p>
         </div>
         <p-slider [ngModel]="sliderValue" [disabled]="true"></p-slider>
       </div>
+    </div>
+    <div class="col-6">
+      <img src="assets/m-chaeschtli-logo.png" style="width: 90%; padding-left: 5px; padding-top: 5px">
     </div>
   </div>
   <div class="grid">
@@ -47,15 +49,9 @@
                 So kann der Einkäufer schnell verstehen, in welchem Bereich er am meisten nachhaltig ist.
               </p>
             </p-tabPanel>
-            <p-tabPanel header="...">
+            <p-tabPanel header="Menüplanner">
               <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-                et quas molestias excepturi sint occaecati cupiditate non provident,
-                similique sunt in culpa qui officia deserunt mollitia animi, id est
-                laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-                distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-                cumque nihil impedit quo minus.
+                Idee: die App schlägt dem User die Rezepte mit den Produkten vor, welche bald ablaufen.
               </p>
             </p-tabPanel>
           </p-tabView>
@@ -63,7 +59,7 @@
     </div>
     <div class="col">
       <div class="card" style="width: fit-content; align-content: center">
-        <p>Tja, da gibt es noch Potential! Für das Produkt + <i>{{originalProduct.name}}</i> + kannst du die Nachhaltigkeit verbessern.
+        <p>Tja, da gibt es noch Potential! Für das Produkt <i>{{originalProduct.name}}</i> kannst du die Nachhaltigkeit verbessern.
           Schaue dir mal folgendes an:
         </p>
         <p-orderList [value]="recomendations" [listStyle]="{ 'max-height': '30rem' }">
@@ -74,8 +70,8 @@
                 <h5 class="mb-2">{{ originalProduct.name }}</h5>
               </div>
               <div class="flex-1">
-                <i class="pi pi-tag vertical-align-middle mr-2"></i>
-                <h5 class="mb-2">Das Produkt hat {{ recommendation['m_check2']['carbon_footprint']['ground_and_sea_cargo']['kg_co2'] }} kg CO2-eq</h5>
+                <h5 class="mb-2">Das Produkt hat <br>
+                  {{ (originalProduct.m_check2?.carbon_footprint.ground_and_sea_cargo.kg_co2 - recommendation['m_check2']['carbon_footprint']['ground_and_sea_cargo']['kg_co2']).toFixed(1) }} kg CO2-eq weniger!</h5>
               </div>
               <div class="w-full text-center lg:w-auto lg:text-left">
                 <img src="{{ recommendation.image.original }}" class="mr-3 shadow-3 w-7rem mb-3 lg:w-5rem lg:mb-auto" />
@@ -84,6 +80,10 @@
             </div>
           </ng-template>
         </p-orderList>
+          <div class="card" style="width: fit-content; margin-left: 0">
+            <p>Der aktuelle Wert {{cO2Value.toFixed(2)}} kg CO2-eq</p>
+            <p-slider [ngModel]="cO2Value" [disabled]="true" ></p-slider>
+          </div>
       </div>
     </div>
   </div>
