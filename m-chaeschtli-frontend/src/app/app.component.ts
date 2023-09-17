@@ -18,6 +18,8 @@ export class AppComponent implements OnInit{
   cO2Value!: number;
   bestValue!: number
 
+  differenceValueCo2?: number
+
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
@@ -85,10 +87,3 @@ export class AppComponent implements OnInit{
   }
 }
 
-let Product : {
-  id?: string;
-  name?: string;
-  keepability?: number;
-  category?: string;
-  image?: string;
-} = {}
