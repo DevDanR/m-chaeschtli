@@ -2,8 +2,8 @@
   <div class="grid">
     <div class="col-6">
       <div class="card">
-        <p>Food-wastometer</p>
-        <p>Challenge: schaffst du weniger als 90% vom Essen in diesem Monat wegzuwerfen? </p>
+        <p style="font-size: 1.5rem; font-weight: bold">Food-wastometer</p>
+        <p>Challenge: Schaffst du es weniger als 90% vom Essen in diesem Monat wegzuwerfen? </p>
         <div class="flex justify-content-between">
           <p>Fatal</p>
           <p>Top gemacht</p>
@@ -45,13 +45,13 @@
             </p-tabPanel>
             <p-tabPanel header="Haushalt">
               <p>
-                Idee: alle Produkte können in mehrere Klassifikationen geteilt werden.
+                Idee: Alle Produkte können in mehrere Kathegorien geteilt werden.
                 So kann der Einkäufer schnell verstehen, in welchem Bereich er am meisten nachhaltig ist.
               </p>
             </p-tabPanel>
             <p-tabPanel header="Menüplanner">
               <p>
-                Idee: die App schlägt dem User die Rezepte mit den Produkten vor, welche bald ablaufen.
+                Idee: Die App schlägt dem User die Rezepte vor mit den Produkten, welche bald ablaufen.
               </p>
             </p-tabPanel>
           </p-tabView>
@@ -59,30 +59,33 @@
     </div>
     <div class="col">
       <div class="card" style="width: fit-content; align-content: center">
-        <p>Tja, da gibt es noch Potential! Für das Produkt <i>{{originalProduct.name}}</i> kannst du die Nachhaltigkeit verbessern.
+        <p style="font-size: 1.5rem">Tja, da gibt es noch Potential! Für das Produkt <i>{{originalProduct.name}}</i> kannst du die Nachhaltigkeit verbessern.
           Schaue dir mal folgendes an:
         </p>
         <p-orderList [value]="recomendations" [listStyle]="{ 'max-height': '30rem' }">
           <ng-template let-recommendation pTemplate="item">
             <div class="flex align-items-center p-2 w-full flex-wrap">
-              <div class="w-full text-center lg:w-auto lg:text-left">
+              <div class="text-center lg:text-left" style="width: 20%">
                 <img src="{{ originalProduct.image?.original }}" class="mr-3 shadow-3 w-7rem mb-3 lg:w-5rem lg:mb-auto" />
                 <h5 class="mb-2">{{ originalProduct.name }}</h5>
               </div>
               <div class="flex-1">
-                <h5 class="mb-2">Das Produkt hat <br>
+                -------->
+                <h5 class="mb-2 text-center">Das Produkt hat <br>
                   {{ (originalProduct.m_check2?.carbon_footprint.ground_and_sea_cargo.kg_co2 - recommendation['m_check2']['carbon_footprint']['ground_and_sea_cargo']['kg_co2']).toFixed(1) }} kg CO2-eq weniger!</h5>
               </div>
-              <div class="w-full text-center lg:w-auto lg:text-left">
+              -------->
+              <div class="text-center lg:text-left" style="width: 20%">
                 <img src="{{ recommendation.image.original }}" class="mr-3 shadow-3 w-7rem mb-3 lg:w-5rem lg:mb-auto" />
                 <h5 class="mb-2">{{ recommendation.name }}</h5>
               </div>
             </div>
           </ng-template>
         </p-orderList>
-          <div class="card" style="width: fit-content; margin-left: 0">
-            <p>Der aktuelle Wert {{cO2Value.toFixed(2)}} kg CO2-eq</p>
-            <p-slider [ngModel]="cO2Value" [disabled]="true" ></p-slider>
+          <div class="card" style="width: 100%; margin-left: 0">
+            <p>Dein aktueller Wert: {{cO2Value.toFixed(2)}} kg CO2-eq</p>
+            <p-slider [ngModel]="cO2ValueSlider" [disabled]="true" ></p-slider>
+            <p>Hey! Du könntest deinen CO2-Footprint auf {{bestValue.toFixed(2)}} kg CO2-eq verringern.</p>
           </div>
       </div>
     </div>

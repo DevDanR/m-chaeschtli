@@ -16,6 +16,7 @@ export class AppComponent implements OnInit{
   products!: Product[];
   sliderValue!: number;
   cO2Value!: number;
+  cO2ValueSlider!: number;
   bestValue!: number
 
   differenceValueCo2?: number
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit{
     this.getData();
     this.getCo2Result()
     this.getRecomendations()
+    this.getBestValue()
   }
 
   getData() {
@@ -50,7 +52,6 @@ export class AppComponent implements OnInit{
   trashProduct(id: string) {
     this.productService.trashProduct(id).subscribe(
       res => {
-        console.log("Result 2: " + res)
         this.sliderValue = res.food_waste_indicator_value
         this.getData()
       }
@@ -60,8 +61,8 @@ export class AppComponent implements OnInit{
   getCo2Result() {
     this.productService.getCo2Result().subscribe(
       res => {
-        console.log("Result 3: " + res)
         this.cO2Value = res.customer_co2_footprint
+        this.cO2ValueSlider = res.customer_co2_footprint / 30
       }
     )
   }
@@ -72,7 +73,7 @@ export class AppComponent implements OnInit{
 
   getBestValue() {
     this.productService.getBestvalue().subscribe(
-      res => this.bestValue = res
+      res => this.bestValue = res.customer_co2_footprint_best
     )
   }
 
