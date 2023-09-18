@@ -64,7 +64,7 @@ class User:
     def __init__(self, customer_id="100007"):
         self.customer_id = customer_id
         self.food_store = FoodStore()
-        self.food_waste_indicator = 0
+        self.food_waste_indicator = 5  # Initial value
 
     def eat_product(self, prod_id):
         prod = self.food_store.get_product_by_id(prod_id)
@@ -92,5 +92,5 @@ class User:
         else:
             co2_footprint_val = co2_footprint
 
-        self.food_waste_indicator += co2_footprint_val
+        self.food_waste_indicator += co2_footprint_val*10  # *10 for demonstration to make it a bit more visible
         self.food_store.remove_products([product])
