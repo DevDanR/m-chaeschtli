@@ -15,3 +15,13 @@ export FLASK_APP=main.py  # Linux
 set FLASK_APP=main.py  # Windows
 ```
 If you run into issues try to deactivate the flask integration (see [https://youtrack.jetbrains.com/issue/PY-55759/Flask-console-start-failed-No-module-named-wsgi](here))
+
+## Setup the frontend
+To start the app please be sure you already have installed node and npm.
+
+```
+cd .\m-chaeschtli-frontend\
+npm install
+ng serve
+```
+Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
